@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.TuApp" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <style name="MagicKeySquareButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_gravity">fill</item>
+
+        <item name="android:background">@drawable/key_circle</item>
+        <item name="backgroundTint">@null</item>
+
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="rippleColor">@color/light_purple</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+</resources>
