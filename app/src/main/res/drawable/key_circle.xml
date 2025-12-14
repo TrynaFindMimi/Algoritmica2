@@ -9,7 +9,6 @@
 
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/key_bg"/>
             <stroke android:width="2dp" android:color="#22FFFFFF"/>
         </shape>
     </item>
