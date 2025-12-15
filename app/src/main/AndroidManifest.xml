@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Algoritmica2">
         <activity
+            android:name=".NumsPrimosGame"
+            android:exported="false" />
+        <activity
             android:name=".GameScreen"
             android:exported="false" />
         <activity

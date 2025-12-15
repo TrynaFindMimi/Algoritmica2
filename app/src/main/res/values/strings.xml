@@ -16,4 +16,8 @@
     <string name="_4">4</string>
     <string name="_9">9</string>
     <string name="app_name">Proyecto Algoritmica 2\n</string>
+    <string name="btn_Primos">Numeros Primos\n</string>
+    <string name="false_text">False\n</string>
+    <string name="true_text">True\n</string>
+    <string name="statement_text">Identifica los numeros primos en el nivel</string>
 </resources>
