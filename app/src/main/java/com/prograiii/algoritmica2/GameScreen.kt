@@ -6,17 +6,17 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.prograiii.algoritmica2.databinding.ActivityGameScreenBinding
 
-
 class GameScreen : AppCompatActivity() {
+
     private lateinit var binding: ActivityGameScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,46 +33,62 @@ class GameScreen : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        val operacion = intent.getStringExtra("OPERACION")
-
-        when (operacion) {
-            "MCM" -> {
-                // TODO mcm
-            }
-            "MCD" -> {
-                // TODO mcd
-            }
-        }
     }
 
     private fun lanzarMeteoritos(contenedor: ViewGroup) {
         val handler = Handler(Looper.getMainLooper())
+
         val runnable = object : Runnable {
             override fun run() {
-                val meteorito = ImageView(contenedor.context).apply {
-                    setImageResource(R.drawable.meteorito)
-                    layoutParams = FrameLayout.LayoutParams(150, 150)
-                    x = (0..contenedor.width).random().toFloat()
-                    y = 0f
+                val size = 150
+                val meteorito = ImageView(contenedor.context)
+
+                meteorito.setImageResource(R.drawable.meteorito)
+                meteorito.layoutParams = FrameLayout.LayoutParams(size, size)
+
+                val maxX = (contenedor.width - size).coerceAtLeast(0)
+                meteorito.x = (0..maxX).random().toFloat()
+                meteorito.y = 0f
+
+                meteorito.setOnClickListener {
+                    destruirMeteorito(meteorito)
                 }
+
                 contenedor.addView(meteorito)
                 moverMeteorito(meteorito)
-                handler.postDelayed(this, 5000)
+
+                handler.postDelayed(this, 10000)
             }
         }
+
         handler.post(runnable)
     }
 
     private fun moverMeteorito(meteorito: ImageView) {
         val anim = ObjectAnimator.ofFloat(meteorito, "translationY", 0f, 1500f)
-        anim.duration = 9000
+        anim.duration = 20000
         anim.start()
+
+        meteorito.tag = anim
 
         anim.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
-                (meteorito.parent as ViewGroup).removeView(meteorito)
+                if (meteorito.parent is ViewGroup) {
+                    (meteorito.parent as ViewGroup).removeView(meteorito)
+                }
             }
         })
+    }
+
+    private fun destruirMeteorito(meteorito: ImageView) {
+        val anim = meteorito.tag
+        if (anim is ObjectAnimator) {
+            anim.cancel()
+        }
+
+        val parent = meteorito.parent
+        if (parent is ViewGroup) {
+            parent.removeView(meteorito)
+        }
     }
 }
