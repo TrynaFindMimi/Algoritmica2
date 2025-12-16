@@ -5,7 +5,7 @@
     android:id="@+id/gameScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/game_bg"
+    android:background="@drawable/space_bg"
     android:padding="16dp">
 
     <androidx.constraintlayout.widget.Guideline
@@ -39,28 +39,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/registerBox"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="5dp"
+        android:layout_height="0dp"
         android:background="@drawable/bg_card"
+        android:padding="14dp"
         android:elevation="12dp"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@id/guideline_top_for_register"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_top_for_register">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/inputDisplay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/background_secondary"
+            android:background="@color/black"
             android:gravity="center"
-            android:padding="12dp"
+            android:padding="10dp"
             android:text="@string/_0"
-            android:textColor="@color/accent_gold_main"
-            android:textSize="18sp"
+            android:textColor="#3F51B5"
+            android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,16 +66,16 @@
         <GridLayout
             android:id="@+id/keypad"
             android:layout_width="0dp"
-            android:layout_height="107dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:alignmentMode="alignMargins"
-            android:columnCount="4"
+            android:layout_height="0dp"
+            android:columnCount="3"
             android:rowCount="3"
+            android:alignmentMode="alignMargins"
             android:useDefaultMargins="true"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/inputDisplay"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputDisplay">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/actionButtons">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/key7"
@@ -88,14 +85,11 @@
                 android:layout_rowWeight="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:background="@drawable/key_circle"
+                android:stateListAnimator="@null"
                 android:text="@string/_7"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <com.google.android.material.button.MaterialButton
@@ -106,14 +100,11 @@
                 android:layout_rowWeight="1"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:background="@drawable/key_circle"
+                android:stateListAnimator="@null"
                 android:text="@string/_8"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <com.google.android.material.button.MaterialButton
@@ -124,32 +115,11 @@
                 android:layout_rowWeight="1"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:background="@drawable/key_circle"
+                android:stateListAnimator="@null"
                 android:text="@string/_9"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/keyValidar"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="3"
-                android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_gold_main"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="@string/validate"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <com.google.android.material.button.MaterialButton
@@ -160,15 +130,12 @@
                 android:layout_rowWeight="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:background="@drawable/key_circle"
+                android:stateListAnimator="@null"
                 android:text="@string/_4"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/key5"
@@ -178,14 +145,11 @@
                 android:layout_rowWeight="1"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:background="@drawable/key_circle"
+                android:stateListAnimator="@null"
                 android:text="@string/_5"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <com.google.android.material.button.MaterialButton
@@ -196,32 +160,11 @@
                 android:layout_rowWeight="1"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:background="@drawable/key_circle"
+                android:stateListAnimator="@null"
                 android:text="@string/_6"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/keyCancelar"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="3"
-                android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_gold_main"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="@string/cancel"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <com.google.android.material.button.MaterialButton
@@ -232,14 +175,11 @@
                 android:layout_rowWeight="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:background="@drawable/key_circle"
+                android:stateListAnimator="@null"
                 android:text="@string/_1"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <com.google.android.material.button.MaterialButton
@@ -250,15 +190,12 @@
                 android:layout_rowWeight="1"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:background="@drawable/key_circle"
+                android:stateListAnimator="@null"
                 android:text="@string/_2"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/key3"
@@ -268,35 +205,50 @@
                 android:layout_rowWeight="1"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:background="@drawable/key_circle"
+                android:stateListAnimator="@null"
                 android:text="@string/_3"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 tools:ignore="TouchTargetSizeCheck" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/key0"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_row="2"
-                android:layout_rowWeight="1"
-                android:layout_column="3"
-                android:layout_columnWeight="1"
-                android:backgroundTint="@color/accent_light_cream"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="@string/_0"
-                android:textColor="@color/tone_deep_green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
-                tools:ignore="TouchTargetSizeCheck" />
-
         </GridLayout>
 
+        <LinearLayout
+            android:id="@+id/actionButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnValidate"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/cyan"
+                android:text="@string/validate"
+                android:textColor="#607D8B"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                tools:ignore="VisualLintButtonSize" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/pink"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                tools:ignore="VisualLintButtonSize" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
