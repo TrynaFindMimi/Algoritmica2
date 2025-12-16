@@ -40,6 +40,7 @@ class GameScreen : AppCompatActivity() {
 
     private fun lanzarMeteoritos(contenedor: ViewGroup) {
         val handler = Handler(Looper.getMainLooper())
+
         val runnable = object : Runnable {
             override fun run() {
                 val meteoritoView = layoutInflater.inflate(R.layout.item_meteorito, contenedor, false)
@@ -56,6 +57,7 @@ class GameScreen : AppCompatActivity() {
                 handler.postDelayed(this, 5000)
             }
         }
+
         handler.post(runnable)
     }
 
@@ -63,6 +65,7 @@ class GameScreen : AppCompatActivity() {
         val anim = ObjectAnimator.ofFloat(meteoritoView, "translationY", 0f, 1500f)
         anim.duration = 9000
         anim.start()
+
 
         anim.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
