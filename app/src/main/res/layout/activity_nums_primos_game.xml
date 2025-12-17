@@ -46,6 +46,7 @@
             android:textColor="@color/accent_gold_main"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:fontFamily="serif"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -92,7 +93,8 @@
                         android:text="@string/true_text"
                         android:textColor="@color/accent_light_cream"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="serif" />
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
@@ -126,7 +128,8 @@
                         android:text="@string/false_text"
                         android:textColor="@color/accent_light_cream"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="serif" />
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
