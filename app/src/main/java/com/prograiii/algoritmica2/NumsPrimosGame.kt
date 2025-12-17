@@ -19,17 +19,19 @@ class NumsPrimosGame : AppCompatActivity() {
 
     private lateinit var binding: ActivityNumsPrimosGameBinding
     private var numeroSeleccionado: Int? = null
+    private var meteoritoSeleccionado: View? = null
 
     private var score = 0
     private var gameEnded = false
     private val handler = Handler(Looper.getMainLooper())
     private var vidas = 3
-    val criba = MutableList(101) { true }
+    private val maximo = 100
+    val criba = MutableList(maximo+10) { true }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        runCriba(100)
+        runCriba(maximo)
         binding = ActivityNumsPrimosGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -61,7 +63,9 @@ class NumsPrimosGame : AppCompatActivity() {
                 if (gameEnded) return
                 val meteoritoView = layoutInflater.inflate(R.layout.item_meteorito, contenedor, false)
 
-                meteoritoView.x = (0..contenedor.width).random().toFloat()
+                val meteoritoWidth = meteoritoView.layoutParams.width.takeIf { it > 0 } ?: 100
+                val maxX = contenedor.width - meteoritoWidth
+                meteoritoView.x = (0..maxX).random().toFloat()
                 meteoritoView.y = 0f
 
                 val txtOperacion = meteoritoView.findViewById<TextView>(R.id.txtOperacion)
@@ -70,45 +74,58 @@ class NumsPrimosGame : AppCompatActivity() {
 
                 meteoritoView.setOnClickListener {
                     numeroSeleccionado = numero
+                    meteoritoSeleccionado = meteoritoView
                     binding.inputDisplay.text = "Número seleccionado: $numero"
                 }
 
                 contenedor.addView(meteoritoView)
-                moverMeteorito(meteoritoView)
+                moverMeteorito(meteoritoView, contenedor)
 
-                handler.postDelayed(this, 5000)
+                handler.postDelayed(this, 4000)
             }
         }
         handler.post(runnable)
     }
 
-    private fun moverMeteorito(meteoritoView: View) {
-        val anim = ObjectAnimator.ofFloat(meteoritoView, "translationY", 0f, 1500f)
-        anim.duration = 15000
-        anim.start()
+    private fun moverMeteorito(meteoritoView: View, contenedor: ViewGroup) {
+        val alturaColision = contenedor.height * 0.60f
+        val anim = ObjectAnimator.ofFloat(meteoritoView, "translationY", 0f, contenedor.height.toFloat())
+        anim.duration = 12000
+
+        var vidaQuitada = false
+        anim.addUpdateListener { animation ->
+            val yActual = animation.animatedValue as Float
+            if (!vidaQuitada && yActual >= alturaColision) {
+                vidaQuitada = true
+
+                if (meteoritoView.parent != null && meteoritoView != meteoritoSeleccionado) {
+                    (meteoritoView.parent as? ViewGroup)?.removeView(meteoritoView)
+                    vidas--
+                    binding.inputDisplay.text = "Un meteorito alcanzó al pingüino. Puntos: $score | Vidas: $vidas"
+
+                    if (vidas <= 0) {
+                        terminarJuego("¡Perdiste! Se acabaron tus vidas.")
+                    }
+                }
+            }
+        }
 
         anim.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
-                meteoritoView.visibility = View.GONE
+                (meteoritoView.parent as? ViewGroup)?.removeView(meteoritoView)
             }
         })
-    }
 
+        anim.start()
+    }
     private fun generarNumeroPrimo(): Int {
-        return (2..100).random()
-    }
-
-    private fun esPrimo(n: Int): Boolean {
-        if (n < 2) return false
-        for (i in 2..Math.sqrt(n.toDouble()).toInt()) {
-            if (n % i == 0) return false
-        }
-        return true
+        return (2..maximo).random()
     }
 
     private fun verificarRespuesta(respuestaJugador: Boolean) {
         val numero = numeroSeleccionado
-        if (numero == null) {
+        val meteorito = meteoritoSeleccionado
+        if (numero == null || meteorito == null) {
             binding.inputDisplay.text = "Selecciona un meteorito primero"
             return
         }
@@ -122,7 +139,10 @@ class NumsPrimosGame : AppCompatActivity() {
             binding.inputDisplay.text = "Incorrecto. Puntos: $score | Vidas: $vidas"
         }
 
+        (meteorito.parent as? ViewGroup)?.removeView(meteorito)
+
         numeroSeleccionado = null
+        meteoritoSeleccionado = null
 
         if (vidas <= 0) {
             terminarJuego("¡Perdiste! Se acabaron tus vidas.")
@@ -152,6 +172,4 @@ class NumsPrimosGame : AppCompatActivity() {
             }
         }
     }
-
-
 }
