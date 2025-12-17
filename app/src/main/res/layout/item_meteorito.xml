@@ -21,7 +21,7 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:fontFamily="serif"
+        android:fontFamily="@font/roman"
         android:shadowColor="@color/pure_black"
         android:shadowDx="2"
         android:shadowDy="2"

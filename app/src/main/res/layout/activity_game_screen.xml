@@ -61,10 +61,10 @@
             android:padding="10dp"
             android:text=""
             android:textColor="#3F51B5"
-            android:hint="Escribe el resultado"
+            android:hint="@string/input_hint"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:fontFamily="serif"
+            android:fontFamily="@font/roman"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
