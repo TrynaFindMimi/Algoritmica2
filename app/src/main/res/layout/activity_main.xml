@@ -79,7 +79,8 @@
                     android:textColor="@color/accent_light_cream"
                     android:textSize="22sp"
                     android:textStyle="bold"
-                    android:letterSpacing="0.08" />
+                    android:fontFamily="@font/roman"
+                    android:letterSpacing="0.05" />
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
 
@@ -114,10 +115,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/btn_Primos"
-                    android:layout_marginTop="15dp"
+                    android:letterSpacing="0.05"
                     android:textColor="@color/accent_light_cream"
                     android:textSize="22sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/roman" />
                     android:letterSpacing="0.08" />
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
@@ -156,7 +158,8 @@
                     android:textColor="@color/accent_light_cream"
                     android:textSize="22sp"
                     android:textStyle="bold"
-                    android:letterSpacing="0.08" />
+                    android:fontFamily="@font/roman"
+                    android:letterSpacing="0.05" />
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
 
