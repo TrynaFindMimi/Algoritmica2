@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="100dp"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    android:clickable="true">
 
 
     <ImageView
@@ -14,9 +15,13 @@
         android:id="@+id/txtOperacion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textColor="@android:color/white"
+        android:gravity="bottom"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+
+        />
 </FrameLayout>
 
