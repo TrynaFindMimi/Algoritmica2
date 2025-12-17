@@ -39,7 +39,7 @@ class GameScreen : AppCompatActivity() {
 
         tipoOperacion = intent.getStringExtra("OPERACION")
 
-        binding.inputDisplay.text = "0"
+        binding.inputDisplay.setText("")
         setupKeypad()
 
         lanzarMeteoritos(binding.meteoritoContainer)
@@ -61,7 +61,7 @@ class GameScreen : AppCompatActivity() {
     private fun setupKeypad() {
         fun addDigit(d: String) {
             currentInput += d
-            binding.inputDisplay.text = currentInput
+            binding.inputDisplay.setText(currentInput)
         }
 
         binding.key1.setOnClickListener { addDigit("1") }
@@ -76,7 +76,7 @@ class GameScreen : AppCompatActivity() {
 
         binding.keyCancelar.setOnClickListener {
             currentInput = ""
-            binding.inputDisplay.text = "0"
+            binding.inputDisplay.setText("")
         }
     }
 
@@ -85,36 +85,64 @@ class GameScreen : AppCompatActivity() {
 
         val runnable = object : Runnable {
             override fun run() {
+
                 if (gameEnded) return
 
                 val meteoritoView =
                     layoutInflater.inflate(R.layout.item_meteorito, contenedor, false)
 
-                meteoritoView.x = (0..contenedor.width).random().toFloat()
+                contenedor.post {
+                    val maxX = contenedor.width - (meteoritoView.width + 150)
+
+                    if (maxX > 0) {
+                        meteoritoView.x = (0..maxX).random().toFloat()
+                    } else {
+                        meteoritoView.x = 0f
+                    }
+                }
                 meteoritoView.y = 0f
 
                 val txtOperacion = meteoritoView.findViewById<TextView>(R.id.txtOperacion)
 
                 val a = (2..9).random()
                 val b = (2..9).random()
-                txtOperacion.text = "$a ∧ $b"
+                val x = (2..50).random()
+                val y = (2..50).random()
 
+                if(tipoOperacion == "MCM") {
+                    txtOperacion.text = "$a ∧ $b"
+                }
+                if(tipoOperacion == "MCD") {
+                    txtOperacion.text = "$x v $y"
+                }
                 meteoritoView.setOnClickListener {
                     if (gameEnded) return@setOnClickListener
 
-                    val userValue = currentInput.toIntOrNull() ?: return@setOnClickListener
-                    val correcto = lcm(a, b)
+                    val userValue = binding.inputDisplay.text
+                    val correctoMCM = lcm(a,b).toString()
 
-                    if (tipoOperacion == "MCM" && userValue == correcto) {
+
+                    if (tipoOperacion == "MCM" && userValue contentEquals correctoMCM) {
                         destruirMeteorito(meteoritoView)
 
-                        // reset input
                         currentInput = ""
-                        binding.inputDisplay.text = "0"
 
                         score++
+                        binding.inputDisplay.setText("")
+                        if (score >= 10) {
+                            endGameWin()
+                        }
+                    }
 
-                        if (score >= 2) {
+                    val correctoMCD = gcd(x,y).toString()
+                    if (tipoOperacion == "MCD" && userValue contentEquals correctoMCD) {
+                        destruirMeteorito(meteoritoView)
+
+                        currentInput = ""
+
+                        score++
+                        binding.inputDisplay.setText("")
+                        if (score >= 10) {
                             endGameWin()
                         }
                     }

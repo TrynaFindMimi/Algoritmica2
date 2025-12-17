@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Algoritmica2">
         <activity
+            android:name=".LosingScreen"
+            android:exported="false" />
+        <activity
+            android:name=".WinningScreen"
+            android:exported="false" />
+        <activity
             android:name=".NumsPrimosGame"
             android:exported="false" />
         <activity
