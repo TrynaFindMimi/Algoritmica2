@@ -2,13 +2,11 @@
 <resources>
 
     <color name="black">#000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="translucent_black">#E1000000</color>
     <color name="white_translucent">#BFFFFFFF</color>
 
 
     <color name="deep_purple">#0D0460</color>
-    <color name="light_purple">#B39DFF</color>
 
 
     <color name="cyan">#45F0E0</color>
@@ -34,4 +32,5 @@
     <color name="border_subtle">#2C4A43</color>
     <color name="divider">#1E3935</color>
 
+    <color name="accent_gold_light">#1E3935</color>
 </resources>
