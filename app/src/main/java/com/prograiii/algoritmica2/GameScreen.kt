@@ -39,8 +39,9 @@ class GameScreen : AppCompatActivity() {
 
         tipoOperacion = intent.getStringExtra("OPERACION")
 
-        binding.inputDisplay.text = "0"
+        binding.inputDisplay.setText("")
         setupKeypad()
+        val currentInput = ""
 
         lanzarMeteoritos(binding.meteoritoContainer)
 
@@ -61,7 +62,7 @@ class GameScreen : AppCompatActivity() {
     private fun setupKeypad() {
         fun addDigit(d: String) {
             currentInput += d
-            binding.inputDisplay.text = currentInput
+            binding.inputDisplay.setText(currentInput)
         }
 
         binding.key1.setOnClickListener { addDigit("1") }
@@ -76,7 +77,7 @@ class GameScreen : AppCompatActivity() {
 
         binding.keyCancelar.setOnClickListener {
             currentInput = ""
-            binding.inputDisplay.text = "0"
+            binding.inputDisplay.setText("")
         }
     }
 
@@ -102,19 +103,19 @@ class GameScreen : AppCompatActivity() {
                 meteoritoView.setOnClickListener {
                     if (gameEnded) return@setOnClickListener
 
-                    val userValue = currentInput.toIntOrNull() ?: return@setOnClickListener
-                    val correcto = lcm(a, b)
+                    val userValue = binding.inputDisplay.text
+                    val correcto = lcm(a, b).toString()
 
-                    if (tipoOperacion == "MCM" && userValue == correcto) {
+                    if (tipoOperacion == "MCM" && userValue contentEquals correcto) {
                         destruirMeteorito(meteoritoView)
 
                         // reset input
                         currentInput = ""
-                        binding.inputDisplay.text = "0"
+//                        binding.inputDisplay.text = "0"
 
                         score++
-
-                        if (score >= 2) {
+                        binding.inputDisplay.setText("")
+                        if (score >= 10) {
                             endGameWin()
                         }
                     }
