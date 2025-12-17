@@ -128,7 +128,7 @@
                         android:minHeight="48dp"
                         android:text="@string/menu"
                         android:textColor="@color/accent_light_cream"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/roman" />
                 </androidx.cardview.widget.CardView>
