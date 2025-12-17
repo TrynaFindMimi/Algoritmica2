@@ -61,7 +61,15 @@ class NumsPrimosGame : AppCompatActivity() {
                 if (gameEnded) return
                 val meteoritoView = layoutInflater.inflate(R.layout.item_meteorito, contenedor, false)
 
-                meteoritoView.x = (0..contenedor.width).random().toFloat()
+                contenedor.post {
+                    val maxX = contenedor.width - (meteoritoView.width + 150)
+
+                    if (maxX > 0) {
+                        meteoritoView.x = (0..maxX).random().toFloat()
+                    } else {
+                        meteoritoView.x = 0f
+                    }
+                }
                 meteoritoView.y = 0f
 
                 val txtOperacion = meteoritoView.findViewById<TextView>(R.id.txtOperacion)
