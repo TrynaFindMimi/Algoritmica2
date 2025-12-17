@@ -74,7 +74,7 @@ class GameScreen : AppCompatActivity() {
         binding.key8.setOnClickListener { addDigit("8") }
         binding.key9.setOnClickListener { addDigit("9") }
 
-        binding.btnCancel.setOnClickListener {
+        binding.keyCancelar.setOnClickListener {
             currentInput = ""
             binding.inputDisplay.text = "0"
         }

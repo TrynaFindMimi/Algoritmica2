@@ -3,8 +3,8 @@
     <string name="app_subtitle">Escoge tu Nivel de Dificultad</string>
     <string name="btn_MCM">Nivel MCM</string>
     <string name="btn_MCD">Nivel MCD</string>
-    <string name="validate">Validar</string>
-    <string name="cancel">Borrar</string>
+    <string name="validate">✓</string>
+    <string name="cancel">X</string>
     <string name="_0">0</string>
     <string name="_7">7</string>
     <string name="_8">8</string>
