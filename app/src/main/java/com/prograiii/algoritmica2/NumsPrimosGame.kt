@@ -82,7 +82,7 @@ class NumsPrimosGame : AppCompatActivity() {
                 contenedor.addView(meteoritoView)
                 moverMeteorito(meteoritoView, contenedor)
 
-                handler.postDelayed(this, 3000)
+                handler.postDelayed(this, 3500)
             }
         }
         handler.post(runnable)
@@ -91,7 +91,7 @@ class NumsPrimosGame : AppCompatActivity() {
     private fun moverMeteorito(meteoritoView: View, contenedor: ViewGroup) {
         val alturaColision = contenedor.height * 0.60f
         val anim = ObjectAnimator.ofFloat(meteoritoView, "translationY", 0f, contenedor.height.toFloat())
-        anim.duration = 11000
+        anim.duration = 12000
 
         var vidaQuitada = false
         anim.addUpdateListener { animation ->
@@ -160,9 +160,15 @@ class NumsPrimosGame : AppCompatActivity() {
         binding.btnFalse.isEnabled = false
 
         if (mensaje.contains("Perdiste")) {
-            endGameDefeat()
-        } else {
-            endGameWin()
+            val intent = Intent(this, LosingScreen::class.java)
+            intent.putExtra("GAME", "NumsPrimosGame")
+            startActivity(intent)
+            finish()
+        } else if (mensaje.contains("Ganaste")) {
+            val intent = Intent(this, WinningScreen::class.java)
+            intent.putExtra("GAME", "NumsPrimosGame")
+            startActivity(intent)
+            finish()
         }
     }
 

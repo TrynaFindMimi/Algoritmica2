@@ -207,25 +207,48 @@
         }
     
         // ---------------- FINES ----------------
-        private fun endGameWin() {
-            gameEnded = true
-            handler.removeCallbacksAndMessages(null)
-            binding.meteoritoContainer.removeAllViews()
-
-            val intent = Intent(this, WinningScreen::class.java)
-            startActivity(intent)
-            finish()
-        }
-
         private fun endGameDefeat() {
             gameEnded = true
             handler.removeCallbacksAndMessages(null)
             binding.meteoritoContainer.removeAllViews()
 
             val intent = Intent(this, LosingScreen::class.java)
+            intent.putExtra("GAME", "GameScreen")
+            intent.putExtra("OPERACION", tipoOperacion) // para saber si era MCM o MCD
             startActivity(intent)
             finish()
         }
+
+        private fun endGameWin() {
+            gameEnded = true
+            handler.removeCallbacksAndMessages(null)
+            binding.meteoritoContainer.removeAllViews()
+
+            val intent = Intent(this, WinningScreen::class.java)
+            intent.putExtra("GAME", "GameScreen")
+            intent.putExtra("OPERACION", tipoOperacion)
+            startActivity(intent)
+            finish()
+        }
+//        private fun endGameWin() {
+//            gameEnded = true
+//            handler.removeCallbacksAndMessages(null)
+//            binding.meteoritoContainer.removeAllViews()
+//
+//            val intent = Intent(this, WinningScreen::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
+//
+//        private fun endGameDefeat() {
+//            gameEnded = true
+//            handler.removeCallbacksAndMessages(null)
+//            binding.meteoritoContainer.removeAllViews()
+//
+//            val intent = Intent(this, LosingScreen::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
 
         // ---------------- MCD / MCM ----------------
