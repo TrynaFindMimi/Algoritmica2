@@ -166,7 +166,7 @@
                         android:paddingVertical="14dp"
                         android:text="@string/false_text"
                         android:textColor="@color/accent_light_cream"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/roman" />
                 </androidx.cardview.widget.CardView>

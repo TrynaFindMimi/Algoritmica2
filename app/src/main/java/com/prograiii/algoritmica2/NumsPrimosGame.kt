@@ -26,13 +26,20 @@ class NumsPrimosGame : AppCompatActivity() {
     private var score = 0
     private var gameEnded = false
     private val handler = Handler(Looper.getMainLooper())
-    private var vidas = 3
     private val maximo = 100
     val criba = MutableList(maximo+10) { true }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Reiniciar estado del juego
+        GameState.resetVidas()
+        score = 0
+        gameEnded = false
+        numeroSeleccionado = null
+        meteoritoSeleccionado = null
+
         runCriba(maximo)
         binding = ActivityNumsPrimosGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -48,8 +55,7 @@ class NumsPrimosGame : AppCompatActivity() {
         }
 
         setupMusicButton()
-
-        lanzarMeteoritos(binding.meteoritoContainer)
+        iniciarCountdown()
 
         binding.btnTrue.setOnClickListener {
             verificarRespuesta(true)
@@ -69,6 +75,25 @@ class NumsPrimosGame : AppCompatActivity() {
         super.onDestroy()
         gameEnded = true
         handler.removeCallbacksAndMessages(null)
+    }
+
+    private fun iniciarCountdown() {
+        var countdown = GameState.COOLDOWN_SEGUNDOS
+        binding.inputDisplay.text = "¡Prepárate! $countdown"
+        
+        val countdownRunnable = object : Runnable {
+            override fun run() {
+                countdown--
+                if (countdown > 0) {
+                    binding.inputDisplay.text = "¡Prepárate! $countdown"
+                    handler.postDelayed(this, 1000)
+                } else {
+                    binding.inputDisplay.text = "Identifica los números primos en el nivel"
+                    lanzarMeteoritos(binding.meteoritoContainer)
+                }
+            }
+        }
+        handler.postDelayed(countdownRunnable, 1000)
     }
 
     private fun lanzarMeteoritos(contenedor: ViewGroup) {
@@ -114,10 +139,10 @@ class NumsPrimosGame : AppCompatActivity() {
 
                 if (meteoritoView.parent != null && meteoritoView != meteoritoSeleccionado) {
                     (meteoritoView.parent as? ViewGroup)?.removeView(meteoritoView)
-                    vidas--
-                    binding.inputDisplay.text = "Un meteorito alcanzó al pingüino. Puntos: $score | Vidas: $vidas"
+                    GameState.perderVida()
+                    binding.inputDisplay.text = "Un meteorito alcanzó al pingüino. Puntos: $score | Vidas: ${GameState.vidas}"
 
-                    if (vidas <= 0) {
+                    if (!gameEnded && GameState.vidas <= 0) {
                         terminarJuego("¡Perdiste! Se acabaron tus vidas.")
                     }
                 }
@@ -147,10 +172,13 @@ class NumsPrimosGame : AppCompatActivity() {
         val correcto = criba[numero]
         if (respuestaJugador == correcto) {
             score++
-            binding.inputDisplay.text = "¡Correcto! Puntos: $score | Vidas: $vidas"
+            binding.inputDisplay.text = "¡Correcto! Puntos: $score | Vidas: ${GameState.vidas}"
+            val anim = meteorito.tag as? ObjectAnimator
+            anim?.cancel()
+            (meteorito.parent as? ViewGroup)?.removeView(meteorito)
         } else {
-            vidas--
-            binding.inputDisplay.text = "Incorrecto. Puntos: $score | Vidas: $vidas"
+            GameState.perderVida()
+            binding.inputDisplay.text = "Incorrecto. Puntos: $score | Vidas: ${GameState.vidas}"
         }
 
         (meteorito.parent as? ViewGroup)?.removeView(meteorito)
@@ -158,14 +186,15 @@ class NumsPrimosGame : AppCompatActivity() {
         numeroSeleccionado = null
         meteoritoSeleccionado = null
 
-        if (vidas <= 0) {
+        if (!gameEnded && GameState.vidas <= 0) {
             terminarJuego("¡Perdiste! Se acabaron tus vidas.")
-        } else if (score >= 30) {
+        } else if (!gameEnded && score >= 30) {
             terminarJuego("¡Ganaste! Llegaste a 30 puntos.")
         }
     }
 
     private fun terminarJuego(mensaje: String) {
+        if (gameEnded) return
         gameEnded = true
         handler.removeCallbacksAndMessages(null)
         binding.inputDisplay.text = mensaje
