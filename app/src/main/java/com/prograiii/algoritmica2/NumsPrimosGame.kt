@@ -19,6 +19,7 @@ import com.prograiii.algoritmica2.databinding.ActivityNumsPrimosGameBinding
 class NumsPrimosGame : AppCompatActivity() {
 
     private lateinit var binding: ActivityNumsPrimosGameBinding
+    private val musicManager = MusicManager.getInstance()
     private var numeroSeleccionado: Int? = null
     private var meteoritoSeleccionado: View? = null
 
@@ -36,7 +37,16 @@ class NumsPrimosGame : AppCompatActivity() {
         binding = ActivityNumsPrimosGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lanzarMeteoritos(binding.root as ViewGroup)
+        binding.btnGoBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
+        }
+
+        setupMusicButton()
+
+        lanzarMeteoritos(binding.meteoritoContainer)
 
         binding.btnTrue.setOnClickListener {
             verificarRespuesta(true)
@@ -190,5 +200,22 @@ class NumsPrimosGame : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun setupMusicButton() {
+        updateMusicIcon()
+        binding.btnMusicToggle.setOnClickListener {
+            musicManager.toggleMute()
+            updateMusicIcon()
+        }
+    }
+
+    private fun updateMusicIcon() {
+        val iconRes = if (musicManager.isMuted()) {
+            R.drawable.ic_volume_off
+        } else {
+            R.drawable.ic_volume_on
+        }
+        binding.btnMusicToggle.setImageResource(iconRes)
     }
 }
