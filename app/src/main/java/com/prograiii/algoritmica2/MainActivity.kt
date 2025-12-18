@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         musicManager.initialize(application)
         musicManager.start()
 
+        GameState.resetVidas()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

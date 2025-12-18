@@ -27,26 +27,30 @@
     
         private var score = 0
     
-        private var vidas = 3
-    
         private val destruidosPorJugador = mutableSetOf<View>()
     
         private val handler = Handler(Looper.getMainLooper())
         private var gameEnded = false
     
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            enableEdgeToEdge()
-    
-            binding = ActivityGameScreenBinding.inflate(layoutInflater)
-            setContentView(binding.root)
-    
-            tipoOperacion = intent.getStringExtra("OPERACION")
-    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        // Resetear vidas al iniciar el juego
+        GameState.resetVidas()
+
+        binding = ActivityGameScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        tipoOperacion = intent.getStringExtra("OPERACION")
+
         binding.inputDisplay.setText("")
         setupKeypad()
 
         binding.btnGoBack.setOnClickListener {
+            gameEnded = true
+            handler.removeCallbacksAndMessages(null)
+            binding.meteoritoContainer.removeAllViews()
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
@@ -54,8 +58,9 @@
         }
 
         setupMusicButton()
+        iniciarCountdown()
 
-        lanzarMeteoritos(binding.meteoritoContainer)            ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
                 val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
                 insets
@@ -64,10 +69,28 @@
     
     
     
-        // ---------------- KEYPAD ----------------
-        private fun setupKeypad() {
     
-            fun addDigit(d: String) {
+    private fun iniciarCountdown() {
+        var countdown = GameState.COOLDOWN_SEGUNDOS
+        binding.inputDisplay.setText("¡Prepárate! $countdown")
+        
+        val countdownRunnable = object : Runnable {
+            override fun run() {
+                countdown--
+                if (countdown > 0) {
+                    binding.inputDisplay.setText("¡Prepárate! $countdown")
+                    handler.postDelayed(this, 1000)
+                } else {
+                    binding.inputDisplay.setText("")
+                    lanzarMeteoritos(binding.meteoritoContainer)
+                }
+            }
+        }
+        handler.postDelayed(countdownRunnable, 1000)
+    }
+    
+    // ---------------- KEYPAD ----------------
+    private fun setupKeypad() {            fun addDigit(d: String) {
                 currentInput += d
                 binding.inputDisplay.setText(currentInput)
             }
@@ -190,8 +213,8 @@
                     override fun onAnimationEnd(animation: Animator) {
 
                         if (!gameEnded && !destruidosPorJugador.contains(meteoritoView)) {
-                            vidas--
-                            if (vidas <= 0) {
+                            GameState.perderVida()
+                            if (GameState.vidas <= 0) {
                                 endGameDefeat()
                             }
                         }
