@@ -47,6 +47,9 @@
         setupKeypad()
 
         binding.btnGoBack.setOnClickListener {
+            gameEnded = true
+            handler.removeCallbacksAndMessages(null)
+            binding.meteoritoContainer.removeAllViews()
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
