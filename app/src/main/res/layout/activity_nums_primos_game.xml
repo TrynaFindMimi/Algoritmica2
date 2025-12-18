@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/controlStation"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="196dp"
+        android:layout_height="146dp"
         android:src="@drawable/penguin1"
         android:contentDescription="@null"
         android:elevation="16dp"
