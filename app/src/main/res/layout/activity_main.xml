@@ -9,6 +9,21 @@
     android:padding="20dp"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/btnMusicToggle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_volume_on"
+        android:padding="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/menu"
+        app:tint="@color/accent_gold_main"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardContainer"
         android:layout_width="0dp"
@@ -117,7 +132,7 @@
                     android:text="@string/btn_Primos"
                     android:letterSpacing="0.05"
                     android:textColor="@color/accent_light_cream"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/roman" />
                     android:letterSpacing="0.08" />
