@@ -28,8 +28,8 @@
 
     <ImageView
         android:id="@+id/controlStation"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="196dp"
+        android:layout_height="106dp"
         android:src="@drawable/penguin1"
         android:contentDescription="@null"
         app:layout_constraintBottom_toTopOf="@id/registerBox"
