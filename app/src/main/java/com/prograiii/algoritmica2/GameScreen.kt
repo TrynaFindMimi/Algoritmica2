@@ -21,6 +21,7 @@
     
         private lateinit var binding: ActivityGameScreenBinding
         private var tipoOperacion: String? = null
+        private val musicManager = MusicManager.getInstance()
     
         private var currentInput = ""
     
@@ -42,12 +43,19 @@
     
             tipoOperacion = intent.getStringExtra("OPERACION")
     
-            binding.inputDisplay.setText("")
-            setupKeypad()
-    
-            lanzarMeteoritos(binding.meteoritoContainer)
-    
-            ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+        binding.inputDisplay.setText("")
+        setupKeypad()
+
+        binding.btnGoBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
+        }
+
+        setupMusicButton()
+
+        lanzarMeteoritos(binding.meteoritoContainer)            ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
                 val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
                 insets
@@ -258,5 +266,22 @@
     
         private fun lcm(a: Int, b: Int): Int {
             return a * b / gcd(a, b)
+        }
+
+        private fun setupMusicButton() {
+            updateMusicIcon()
+            binding.btnMusicToggle.setOnClickListener {
+                musicManager.toggleMute()
+                updateMusicIcon()
+            }
+        }
+
+        private fun updateMusicIcon() {
+            val iconRes = if (musicManager.isMuted()) {
+                R.drawable.ic_volume_off
+            } else {
+                R.drawable.ic_volume_on
+            }
+            binding.btnMusicToggle.setImageResource(iconRes)
         }
     }
